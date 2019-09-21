@@ -15,7 +15,7 @@
  */
 /**************** Start Modifying Here! *********************/
 
-var stageArray = [5,3,6,2,7,6,8,9,4,11,10,1];
+var stageArray = [5,3,6,2,7,6,8,4,1];
 
 // Now sort the array!
 function doArraySort(stageArray) {
