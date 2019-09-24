@@ -9,7 +9,7 @@ export default class PlayScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet("player", "/.DO_NOT_TOUCH/assets/player_sprite.png", {
+    this.load.spritesheet("player", "/.DO_NOT_TOUCH/assets/player-sprite.png", {
       frameWidth: 16,
       frameHeight: 16,
       margin: 0,

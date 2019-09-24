@@ -12,7 +12,7 @@ export default class PlayerCharacter extends Phaser.Physics.Arcade.Sprite {
 
     this.setCollideWorldBounds(true)
       .setDrag(500, 0)
-      .setMaxVelocity(200, 400)
+      .setMaxVelocity(150, 300)
       .setInteractive()
       .setOrigin(); // fixes interactive offset issue
 
@@ -68,7 +68,7 @@ export default class PlayerCharacter extends Phaser.Physics.Arcade.Sprite {
 
     // Only allow the player to jump if they are on the ground
     if (onGround && (keys.up.isDown || keys.q.isDown)) {
-      sprite.setVelocityY(-125 * 2);
+      sprite.setVelocityY(-400 * 2);
     }
 
     // Update the animation/texture based on the state of the player

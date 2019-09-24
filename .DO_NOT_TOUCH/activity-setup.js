@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import DevLaunchers from "./classes/dev-launchers";
 import PlayerCharacter from "./classes/PlayerCharacter.js";
 import Goal from "./classes/Goal.js";
+import FloatingPlatform from "./classes/FloatingPlatform.js";
 import CenteredTimedText from "./classes/CenteredTimedText.js";
 
 // Load specific game stuff here that will be used in
@@ -28,17 +29,40 @@ export function setupActivity(scene) {
   let halfGameHeight = gameHeight / 2;
 
   new CenteredTimedText(scene, "Modify\nthe stage\nto win!", {}, 1500, () => {
-    scene.ground = scene.physics.add.staticSprite(
-      halfGameWidth,
-      gameHeight - 20,
-      scene.generateRectangleSprite(gameWidth, 100)
-    );
+    scene.goal = new Goal(scene, 380, 20, 30, 30, 0x00dd00);
 
-    scene.goal = new Goal(scene, 370, 155, 30, 30, 0x00dd00);
+    // Create randomized array
+    let nums = [1, 2, 3, 4, 5, 6, 7, 8];
+    for (let i = 0; i < nums.length * 2; i++) {
+      let randIndex = parseInt(Math.random() * nums.length);
+      nums.push(nums.splice(randIndex, 1)[0]);
+    }
+    scene.stageArray = nums;
 
+    // Now load the modify code, and then continue activity setup afterward in the callback
     loadModifyCode(scene, function() {
-      scene.player = new PlayerCharacter(scene, 100, 10);
-      scene.physics.add.collider(scene.player, scene.solidBlocks);
+      let gameWidth = scene.game.config.width; // easy access and readability
+      let gameHeight = scene.game.config.height; // easy access and readability
+      let blockWidth = parseInt(gameWidth / scene.stageArray.length);
+      scene.floatingPlatforms = [];
+      for (let i = 0; i < scene.stageArray.length; i++) {
+        if (scene.stageArray[i] != 0) {
+          // Create a block
+          let blockHeight = scene.stageArray[i] * 25;
+          let thisPlatform = new FloatingPlatform(
+            scene,
+            blockWidth / 2 + blockWidth * i + 2,
+            gameHeight - 10,
+            blockWidth - 4,
+            blockHeight - 8,
+            scene.stageArray[i]
+          );
+          scene.floatingPlatforms.push(thisPlatform.platform);
+        }
+      }
+
+      scene.player = new PlayerCharacter(scene, 10, 10);
+      scene.physics.add.collider(scene.player, scene.floatingPlatforms);
       scene.physics.add.collider(scene.player, scene.ground);
       scene.physics.add.collider(scene.player, scene.goal, () => {
         new DevLaunchers.Activities.Success.Noise(scene);

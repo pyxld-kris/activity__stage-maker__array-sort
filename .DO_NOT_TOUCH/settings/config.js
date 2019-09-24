@@ -8,12 +8,12 @@ export var config = {
   parent: "game-container",
   pixelArt: true,
   autoRound: false,
-  backgroundColor: "#000000",
+  backgroundColor: "#555555",
   scene: PlayScene,
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 500 }
+      gravity: { y: 1500 }
     }
   }
 };
