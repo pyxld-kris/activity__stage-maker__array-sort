@@ -5,6 +5,9 @@ export default class FloatingPlatform extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, scene.generateRectangleSprite(platformWidth, 5));
     this.scene = scene;
 
+    this.moveSpeed = 4;
+    this.targetX = x;
+
     this.column = scene.add
       .sprite(
         x,
@@ -39,6 +42,33 @@ export default class FloatingPlatform extends Phaser.Physics.Arcade.Sprite {
     // Add to physics engine
     scene.physics.add.existing(this, true); // true makes object static
     */
+
+    // Hook into the scene's update event
+    scene.events.on("update", this.update, this);
+  }
+
+  setX(x) {
+    super.setX(x);
+    this.column.setX(x);
+    this.label.setX(x);
+    this.platform.setX(x);
+    this.platform.body.x = x - this.platform.width / 2;
+  }
+
+  setTargetX(targetX) {
+    this.targetX = targetX;
+  }
+
+  update(time, delta) {
+    if (this.x != this.targetX) {
+      let distance = this.targetX - this.x;
+      if (Math.abs(distance) > this.moveSpeed) {
+        let normalized = distance / Math.abs(distance);
+        this.setX(this.x + normalized * this.moveSpeed);
+      } else {
+        this.setX(this.targetX);
+      }
+    }
   }
 
   destroy() {

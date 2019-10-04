@@ -4,18 +4,13 @@
 
 We're going to be modifying the "modify.mjs" file for this activity!
 
-Key Concepts: arrays
+Key Concepts: arrays, loops
 
 ---
 
 #### GOAL:
 
-Modify the stage, using an array, to allow your character to reach the goal!
-
-Change the 'stageArray' variable to alter the level!
-Possible array entry values:
-_ 1: Solid Block
-_ 0: Empty Space
+Sort the steps to allow your character to reach the goal!
 
 Open the "modify.mjs" file to begin
 

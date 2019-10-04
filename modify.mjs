@@ -1,36 +1,30 @@
 /**** WELCOME! *********************************************/
 /**
- * Modify the stage, using an array, to allow your character
- * to reach the goal!
+ * Sort the steps to allow your character to reach the goal!
  * 
- * Change the 'stageArray' variable to alter the level!
- *    Possible array entry values:
- *      * 1: Solid Block
- *      * 0: Empty Space
  * 
  * ----------------------------------------------------------
  * After making a change: save this file, then press the refresh
  * button above the game window!
  * ----------------------------------------------------------
  */
+
 /**************** Start Modifying Here! *********************/
 
 
+this.sortStairs = function(array) {
 
-// Now sort the array!
-function doArraySort(stageArray) {
-  // Write sorting logic here
+  // Finish the incomplete sorting algorithm!
+  for (let i=0; i<array.length; i++) {
+    swapElements(i, i-1);
+  }
 
-  return stageArray;
 }
-
-let scene = this;
-doArraySort(scene.stageArray);
-
 
 /**** GOODBYE! ************************************************/
 /**** Stop Modifying Here! (Unless you want to experiment!) ***/
 
+/* */
 /*/
 /*/
 /*/
@@ -40,8 +34,19 @@ doArraySort(scene.stageArray);
 /*/
 /*/
 /*/
-/*/
-/*/
+/* */
+
+var scene = this;
+function swapElements(indexA, indexB) {
+  if (indexA<0 || indexB<0 || indexA >=scene.stageArray.length || indexB >=scene.stageArray.length)
+    return;
+  // Swap the integers in stageArray
+  let temp = scene.stageArray[indexA];
+  scene.stageArray[indexA] = scene.stageArray[indexB];
+  scene.stageArray[indexB] = temp;
+
+  return 1;
+}
 
 /* eslint-disable */ // Stops codesandbox from giving us annoying errors
 
