@@ -195,20 +195,11 @@ var evalWithinContext = function(context, code) {
 // using this method instead of import to maintain scene scope and keep import/export
 //    out of the modify.js script. More simple for students to work with
 function loadModifyCode(scene, callback) {
-  loadScriptWithinContext("../modify.mjs", scene, callback);
-}
-function loadScriptWithinContext(path, context, callback) {
-  /* eslint-disable */
-  let codeText = fetch(path)
-    .then(function(response) {
-      return response.text();
-    })
-    .then(function(textString) {
-      let modifiedActivityCode = injectIntoModifiedActivityCode(textString);
-      evalWithinContext(context, modifiedActivityCode);
-      callback();
-    });
-  /* eslint-enable */
+  //loadScriptWithinContext("../modify.mjs", scene);
+  const userCode = require("!!raw-loader!../modify.js");
+  const modifiedUserCode = injectIntoModifiedActivityCode(userCode);
+  evalWithinContext(scene, modifiedUserCode);
+  callback();
 }
 
 function injectIntoModifiedActivityCode(modifiedActivityCode) {

@@ -12,6 +12,6 @@ Key Concepts: arrays, loops
 
 Sort the steps to allow your character to reach the goal!
 
-Open the "modify.mjs" file to begin
+Open the "modify.js" file to begin
 
 ---
